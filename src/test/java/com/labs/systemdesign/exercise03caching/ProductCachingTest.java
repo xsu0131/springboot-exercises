@@ -1,3 +1,4 @@
+
 package com.labs.systemdesign.exercise03caching;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -42,7 +43,8 @@ class ProductCachingTest {
     void setUp() {
         db.clear();
         var cache = cacheManager.getCache("products");
-        if (cache != null) cache.clear();
+        if (cache != null)
+            cache.clear();
 
         // findById returns a fresh copy of current db state (or empty).
         when(repo.findById(any())).thenAnswer(inv -> {
@@ -73,8 +75,8 @@ class ProductCachingTest {
     void afterUpdate_readReturnsFreshValue_notStaleCache() {
         db.put(2L, new Product(2L, "Keyboard", new BigDecimal("20.00")));
 
-        service.getProduct(2L);                                                  // caches price 20.00
-        service.updateProduct(2L, "Keyboard Pro", new BigDecimal("25.00"));      // must refresh cache
+        service.getProduct(2L); // caches price 20.00
+        service.updateProduct(2L, "Keyboard Pro", new BigDecimal("25.00")); // must refresh cache
 
         Product after = service.getProduct(2L);
 
