@@ -12,11 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
  * mean editing this method.
  *
  * Complete signup():
- *   TODO: after saving the user, publish a UserCreatedEvent via the injected
- *         ApplicationEventPublisher. The listeners (EmailListener, AnalyticsListener)
- *         subscribe on their own.
+ * TODO: after saving the user, publish a UserCreatedEvent via the injected
+ * ApplicationEventPublisher. The listeners (EmailListener, AnalyticsListener)
+ * subscribe on their own.
  *
- * In production a @TransactionalEventListener(phase = AFTER_COMMIT) is the correct
+ * In production a @TransactionalEventListener(phase = AFTER_COMMIT) is the
+ * correct
  * choice so you never email a user whose signup rolled back — see README.
  */
 @Service
@@ -34,6 +35,9 @@ public class SignupService {
     public User signup(String email) {
         User user = repo.save(new User(email));
         // TODO: publish a UserCreatedEvent(user.getId(), user.getEmail()) here.
+        UserCreatedEvent event = new UserCreatedEvent(user.getId(), user.getEmail());
+        publisher.publishEvent(event);
+
         return user;
     }
 }
