@@ -80,7 +80,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <testIncludes>
-                        <testInclude>**/ProductCachingTest.java</testInclude>
+                        <testInclude>**/KeysetPaginationTest.java</testInclude>
                     </testIncludes>
                 </configuration>
             </plugin>
